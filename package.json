@@ -12,7 +12,9 @@
     "start": "node --env-file=.env dist/index.js start",
     "build": "rimraf dist && npx tsc"
   },
-  "dependencies": {},
+  "dependencies": {
+    "got": "^14.4.9"
+  },
   "devDependencies": {
     "@types/express": "^5.0.3",
     "@types/node": "^22.13.14",
