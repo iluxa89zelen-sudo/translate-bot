@@ -2,7 +2,10 @@ import got from "got";
 
 export enum TargetLanguageCode {
   ru = "ru",
-  en = "en"
+  en = "en",
+  de = "de",
+  ja = "ja",
+  zh = "zh"
 }
 
 export interface TranslateParams {
@@ -57,3 +60,16 @@ export class TranslateService {
     }
   }
 }
+
+if (!process.env.YANDEX_CLOUD_SERVICE_ACCOUNT_API_KEY) {
+  throw new Error('YANDEX_CLOUD_SERVICE_ACCOUNT_API_KEY not set in environment variables');
+}
+
+if (!process.env.YANDEX_CLOUD_FOLDER_ID) {
+  throw new Error('YANDEX_CLOUD_FOLDER_ID not set in environment variables');
+}
+
+export const translateService = new TranslateService(
+  process.env.YANDEX_CLOUD_SERVICE_ACCOUNT_API_KEY,
+  process.env.YANDEX_CLOUD_FOLDER_ID
+)

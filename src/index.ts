@@ -1,13 +1,12 @@
-import { translateService } from "./services/index.js";
-import { TargetLanguageCode } from "./services/translate.service.js";
+import { translateService } from "./services/translate.service.js";
+import { TranslateController } from "./controllers/translate.controller.js";
 
-const { data: text, error}  = await translateService.translate({
-    text: "Hello world",
-    targetLanguageCode: TargetLanguageCode.ru
-});
+const token = process.env.TELEGRAM_BOT_TOKEN;
 
-if (error) {
-    console.error(error);
-} else {
-    console.log(text)
+if (!token) {
+  throw new Error("TELEGRAM_BOT_TOKEN is not set in environment variables");
 }
+
+const translateController = new TranslateController(token, translateService);
+
+await translateController.start();
