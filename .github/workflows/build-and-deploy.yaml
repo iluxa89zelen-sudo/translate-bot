@@ -2,10 +2,16 @@ name: Build and Deploy
 
 on: 
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment'
+        type: environment
+        required: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -24,6 +30,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
     steps:
       - uses: actions/checkout@v4
       - name: Download artifacts
